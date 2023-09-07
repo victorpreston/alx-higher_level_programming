@@ -2,8 +2,7 @@
 
 def magic_calculation(a, b):
     """Match bytecode provided"""
-    add = __import__('magic_calculation_102').add
-    sub = __import__('magic_calculation_102').sub
+    add, sub = lambda a, b: a + b, lambda a, b: a - b
 
     if a < b:
         c = add(a, b)
