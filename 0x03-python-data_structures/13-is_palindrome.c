@@ -1,54 +1,114 @@
 #include "lists.h"
 
 /**
-* list_len -Function: finds elements in a linked list.
-* @h: pointer to linked list.
-*
-* Return: number of elements in linked list.
-*/
-size_t list_len(listint_t *h)
+ * reverse -Function, reverse
+ *
+ * @h_r: head of the second half
+ * Return: no return
+ */
+void reverse(listint_t **h_r)
 {
-	size_t  n_d = 0;
+    listint_t *prv;
+    listint_t *crr;
+    listint_t *nxt;
 
-	if (h == NULL)
-		return (0);
-	while (h != NULL)
-	{
-		n_d++;
-		h = h->next;
-	}
-	return (n_d);
+    prv = NULL;
+    crr = *h_r;
+
+    while (crr != NULL)
+    {
+        nxt = crr->next;
+        crr->next = prv;
+        prv = crr;
+        crr = nxt;
+    }
+
+    *h_r = prv;
 }
 
 /**
-* is_palindrome -Checks whether a singly linked list is palindrome
-* @head: double pointert to head of d-list.
-*
-* Return: 1 if palindrome, 0 otherwise - (Elsewhere)
-*/
+ * compare - Compares linked Lists
+ *
+ * @h1: head of the first half
+ * @h2: head of the second half
+ *
+ *
+ */
+int compare(listint_t *h1, listint_t *h2)
+{
+    listint_t *tmp1;
+    listint_t *tmp2;
+
+    tmp1 = h1;
+    tmp2 = h2;
+
+    while (tmp1 != NULL && tmp2 != NULL)
+    {
+        if (tmp1->n == tmp2->n)
+        {
+            tmp1 = tmp1->next;
+            tmp2 = tmp2->next;
+        }
+        else
+        {
+            return (0);
+        }
+    }
+
+    if (tmp1 == NULL && tmp2 == NULL)
+    {
+        return (1);
+    }
+
+    return (0);
+}
+
+/**
+ * is_palindrome Checks for palindrome in singly linked lists
+ *
+ * @head: pointer to head of list
+ * Return: 0, no palindrome
+ */
 int is_palindrome(listint_t **head)
 {
-	int *nArr, i = 0, j = 0, len = 0;
-	listint_t *temp;
+    listint_t *slow, *fast, *prev_slow;
+    listint_t *scn_half, *middle;
+    int isp;
 
-	if (*head == NULL)
-		return (1);
-	temp = *head;
-	len = list_len(temp);
-	nArr = (int *)malloc(sizeof(int) * len);
-	if (nArr == NULL)
-		return (2);
-	temp = *head;
-	while (temp != NULL)
-	{
-		nArr[j] = temp->n;
-		j++;
-		temp = temp->next;
-	}
-	for (i = 0, j = len - 1; i < j; i++, j--)
-	{
-		if (nArr[i] != nArr[j])
-			return (0);
-	}
-	return (1);
+    slow = fast = prev_slow = *head;
+    middle = NULL;
+    isp = 1;
+
+    if (*head != NULL && (*head)->next != NULL)
+    {
+        while (fast != NULL && fast->next != NULL)
+        {
+            fast = fast->next->next;
+            prev_slow = slow;
+            slow = slow->next;
+        }
+
+        if (fast != NULL)
+        {
+            middle = slow;
+            slow = slow->next;
+        }
+
+        scn_half = slow;
+        prev_slow->next = NULL;
+        reverse(&scn_half);
+        isp = compare(*head, scn_half);
+
+        if (middle != NULL)
+        {
+            prev_slow->next = middle;
+            middle->next = scn_half;
+        }
+        else
+        {
+            prev_slow->next = scn_half;
+        }
+    }
+
+    return (isp);
 }
