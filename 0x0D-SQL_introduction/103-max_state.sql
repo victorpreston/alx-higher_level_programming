@@ -1,8 +1,6 @@
--- Displays the 3 cities with the highest average
--- temperatures between July and August.
-SELECT `city`, AVG(`value`) AS `avg_temp`
-FROM `temperatures`
-WHERE `month` = 7 OR `month` = 8
-GROUP BY `city`
-ORDER BY `avg_temp` DESC
+-- Script that displays the max temperature of each state
+-- Query to display the max temperature of each state
+SELECT state, MAX(value) AS max_temp
+FROM temperatures
+GROUP BY state
 LIMIT 3;
