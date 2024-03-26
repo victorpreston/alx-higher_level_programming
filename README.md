@@ -1,6 +1,6 @@
 ![img](https://assets.imaginablefutures.com/media/images/ALX_Logo.max-200x150.png)
 
-# Zen (Python) 
+# Python 
 
 >Not sure if C has taught me to think like a programmer or python is just really easy.
 
