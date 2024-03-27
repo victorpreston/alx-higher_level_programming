@@ -1,25 +1,24 @@
 #!/usr/bin/python3
-""" Finds a peak inside a list """
+"""script for finding peak in list of ints, interview prep
+"""
+
+"""
+    THOUGHT PROCESS
+        it is not sorted, so sorting would take n(log(n))
+            -> not worth sorting
+        looping through and keeping track of max (brute force)
+            -> O(n)
+
+        possibly looping from each end reducing to 1/2 run time
+            -> still O(n)
+"""
 
 
 def find_peak(list_of_integers):
-    if list_of_integers == []:
-        return None
-
-    length = len(list_of_integers)
-    mid = int(length / 2)
-    li = list_of_integers
-
-    if mid - 1 < 0 and mid + 1 >= length:
-        return li[mid]
-    elif mid - 1 < 0:
-        return li[mid] if li[mid] > li[mid + 1] else li[mid + 1]
-    elif mid + 1 >= length:
-        return li[mid] if li[mid] > li[mid - 1] else li[mid - 1]
-
-    if li[mid - 1] < li[mid] > li[mid + 1]:
-        return li[mid]
-
-    if li[mid + 1] > li[mid - 1]:
-        return find_peak(li[mid:])
-    return find_peak(li[:mid])
+    """BRUTE force implementation for question
+    """
+    max_i = None
+    for ele in list_of_integers:
+        if max_i is None or max_i < ele:
+            max_i = ele
+    return max_i
