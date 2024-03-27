@@ -1,24 +1,24 @@
 #!/usr/bin/python3
-"""script for finding peak in list of ints, interview prep
+"""
+Peak Module
 """
 
-"""
-    THOUGHT PROCESS
-        it is not sorted, so sorting would take n(log(n))
-            -> not worth sorting
-        looping through and keeping track of max (brute force)
-            -> O(n)
 
-        possibly looping from each end reducing to 1/2 run time
-            -> still O(n)
-"""
+def divide(array, low, high):
+    """divide and conquer"""
+
+    mid = int((high + low)/2)
+    if array[mid-1] <= array[mid] >= array[mid+1]:
+        return array[mid]
+    elif array[mid] > array[mid+1]:
+        return divide(array, low, mid-1)
+    elif array[mid] < array[mid+1]:
+        return divide(array, mid+1, high)
 
 
 def find_peak(list_of_integers):
-    """BRUTE force implementation for question
-    """
-    max_i = None
-    for ele in list_of_integers:
-        if max_i is None or max_i < ele:
-            max_i = ele
-    return max_i
+    """Find peak of a list"""
+
+    if not list_of_integers:
+        return None
+    return divide(list_of_integers, 0, len(list_of_integers)-1)
