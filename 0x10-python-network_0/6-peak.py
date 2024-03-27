@@ -15,15 +15,10 @@
 
 
 def find_peak(list_of_integers):
-    """Improved implementation for question"""
-    if not list_of_integers:
-        return None
-
-    max_i = 0
-    for i in range(1, len(list_of_integers)):
-        if list_of_integers[i] > list_of_integers[max_i]:
-            max_i = i
-        elif list_of_integers[i] < list_of_integers[max_i]:
-            break
-
-    return list_of_integers[max_i]
+    """BRUTE force implementation for question
+    """
+    max_i = None
+    for ele in list_of_integers:
+        if max_i is None or max_i < ele:
+            max_i = ele
+    return max_i
